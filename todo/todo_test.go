@@ -25,7 +25,3 @@ func TestList(t *testing.T) {
 		}
 	}
 }
-
-func TestDelete(t *testing.T) {
-
-}
