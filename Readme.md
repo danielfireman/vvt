@@ -4,16 +4,63 @@ Este projeto tem como objetivo servir de suporte ao curso de Verificação, Vali
 
 Uma vez que será completamente efeutado pelo professor e o foco principal são os conceitos ministrados, o passo-a-passo poderia ser ministrado em qualquer linguagem de programação. Escolhemos [Go](http://golang.org) para esse curso. Para uma lista mais completa de motivos para a escolha de Go, por favor clique [aqui](#porque-go).
 
-
+A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. O API /todos tem 3 métodos: PUT, GET e DELETE. Eles podem ser utilizados para adicionar, imprimir e remover items da lista. Existe também uma API GET /todolist, que imprime toda a lista de TODOs.
 
 ### Configuração do ambiente
-* Instalar [Go runtime](http://golang.org)
+Pessoas curiosas podem aprender o básico de [Go](http://golang.org) [aqui](https://tour.golang.org/welcome/1). Web app developers podem começar [aqui](https://golang.org/doc/articles/wiki/).
 
-Eu achei mais fácil usar gvm para instalação e manutenção de runtimes Go
+#### Instalação da runtime Go
+Eu achei mais fácil usar [gvm](http://github.com/moovweb/gvm) para instalação e manutenção de runtimes Go. Intruções mais detalhadas [aqui](https://github.com/moovweb/gvm). É necessário ter  o comando  [curl](http://curl.haxx.se/) instalado.
 
 ```bash
+$ bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+$ gvm install go1.5
+$ gvm use go1.5 [--default]
+$ echo "export GOPATH={SEU GOPATH}" >> ~/.bashrc
+$ echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
 ```
 
+#### Dependências e código do servidor de TODOs
+Para simplificar o código do servidor REST fazemos uso da biblioteca [labstack/echo](https://github.com/labstack/echo), outras bibliotecas também poderiam ser usadas, por exmplo [Gorilla Mux](https://github.com/gorilla/mux), [Gin](https://gin-gonic.github.io/gin/) e [Negroni](https://github.com/codegangsta/negroni). Esse passo só precisara ser executado uma vez.
+
+    $ go get github.com/labstack/echo  # labstack/echo
+    $ go get github.com/danielfireman/vvt
+
+Após execução, o código fonte do servidor de TODOs poderá ser encontrado em :
+
+    $GOPATH/src/github.com/danielfireman/vvt
+
+### Executar servidor e utilizar o serviço
+O comando abaixo compilará o código do servidor e executará o programa que aceitará requisções na porta 8999.
+
+```bash
+$ go run $GOPATH/src/github.com/danielfireman/vvt/cmd/server/main.go --port=8999
+Server listening at localhost:8999
+```
+
+Pronto! A essa altura do campeonato temos o servidor executando e a API de gerênciamento de TODOs pronta para receber requisições na porta 8999. Vamos fazer alguns testes para entender melhor as funcionalidades do serviço. Utilizaremos [curl](http://curl.haxx.se/) para enviar as requisições.
+
+```bash
+ $ curl -H "Content-Type: application/json" -X POST -d '{"desc":"Comprar legumes"}' localhost:8999/todo
+ {"Desc":"Comprar legumes"}
+ $ curl -H "Content-Type: application/json" -X POST -d '{"desc":"Comprar verduras"}' localhost:8999/todo
+ {"Desc":"Comprar verduras"}
+```
+
+Os comandos enviam requisições POST para http://localhost:8999/todo. A requisição é do tipo JSON e contém {"desc":"Comprar legumes"} e {"desc":"Comprar verduras"}. Ao final das execuções a lista de coisas a fazer terá dois items, como pode ser verificado através do comando abaixo:
+
+```bash
+ $ curl -H "Content-Type: application/json" -X GET localhost:8999/todolist
+ ["Comprar legumes","Comprar verduras"]
+```
+
+Para remover o primeiro item da lista podemos usar o comando DELETE.
+
+```bash
+ $ curl -H "Content-Type: application/json" -X DELETE localhost:8999/todo/0
+ $ curl -H "Content-Type: application/json" -X GET localhost:8999/todolist
+ ["Comprar verduras"]
+```
 
 ## Apendice
 ### Porque Go
