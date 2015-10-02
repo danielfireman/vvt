@@ -97,7 +97,100 @@ coverage: 100.0% of statements
 ok  	github.com/danielfireman/vvt/todo	0.003s
 ```
 
-Todos os testes passando e temos 100% de cobertura! Agora vamos implementação.
+Todos os testes passando e temos 100% de cobertura! Agora vamos melhorar um pouco o teste e a uma primeira versão da implementação.
+
+```go
+// todo_test.go
+func TestDelete(t *testing.T) {
+	s := store{[]string{"foo", "bar"}}
+	if err := s.Delete(0); err != nil {
+		t.Errorf("want:nil, got:%v", err)
+	}
+	if s.content[0] != "bar" {
+		t.Errorf("want:bar, got:%v", s.content[0])
+	}
+}
+
+// todo.go
+func (s *store) Delete(n int) error {
+	return nil
+}
+```
+
+Ao re-executar os testes temos a primeira etapa do TDD, uma falha.
+
+```bash
+$ cd $GOPATH/src/github.com/danielfireman/vvt/todo
+$  go test -coverprofile=/tmp/c.out && go tool cover -html=/tmp/c.out
+--- FAIL: TestDelete (0.00s)
+	todo_test.go:35: want:bar, got:foo
+FAIL
+coverage: 100.0% of statements
+exit status 1
+FAIL	github.com/danielfireman/vvt/todo	0.003s
+```	
+
+E a implementação:
+
+```go
+func (s *store) Delete(n int) error {
+ 	s.content = append(s.content[:n], s.content[n+1:]...)
+	return nil
+}
+```
+
+E temos os testes passando e cobertura de 100%. Tudo verde, não? Vocês tem algum problema? O que aconteceria se o índice passado para deleção não estivesse nos limites da lista? Isso nos leva a mais uma iteração do TDD, mais uma falha. Ao adicionar o trecho abaixo ao test e re-executar os testes teremos mais uma falha.
+
+```go
+	if err := s.Delete(1); err == nil {
+		t.Errorf("must error, got:nil")
+	}
+```
+
+Por fim, vamos corrigir essa falha na implementação finalizamos a adição da API ao serviço com os seguinte código.
+
+```go
+// todo_test.go
+func TestDelete(t *testing.T) {
+	s := store{[]string{"foo", "bar"}}
+	if err := s.Delete(0); err != nil {
+		t.Errorf("want:nil, got:%v", err)
+	}
+	if s.content[0] != "bar" {
+		t.Errorf("want:bar, got:%v", s.content[0])
+	}
+	if err := s.Delete(1); err == nil {
+		t.Errorf("want:nil, got:%v", err)
+	}
+}
+
+// todo.go
+func (s *store) Delete(n int) error {
+	if n < 0 || n >= len(s.content) {
+		return errors.New("Invalid position.")
+	}
+	s.content = append(s.content[:n], s.content[n+1:]...)
+	return nil
+}
+
+// server.go
+	e.Delete("/todo/:id", func(c *echo.Context) error {
+		param := c.Param("id")
+		id, err := strconv.Atoi(param)
+		if err != nil {
+			msg := fmt.Sprintf("Invalid parameter: %v", param)
+			return c.JSON(http.StatusPreconditionFailed, msg)
+		}
+		if err := s.Delete(id); err != nil {
+			return c.JSON(http.StatusNotFound, err.Error())
+		}
+		return c.NoContent(http.StatusNoContent)
+	})
+```
+
+Pronto! Ao subir o servidor, o serviço já estará pronto para receber requisições.
+
+    curl -H "Content-Type: application/json" -X DELETE localhost:8999/todo/0
 
 ## Apendice
 ### Porque Go
