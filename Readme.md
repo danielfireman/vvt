@@ -4,7 +4,7 @@ Este projeto tem como objetivo servir de suporte ao curso de Verificação, Vali
 
 Uma vez que será completamente efeutado pelo professor e o foco principal são os conceitos ministrados, o passo-a-passo poderia ser ministrado em qualquer linguagem de programação. Escolhemos [Go](http://golang.org) para esse curso. Para uma lista mais completa de motivos para a escolha de Go, por favor clique [aqui](#porque-go).
 
-A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. O API /todos tem 3 métodos: PUT, GET e DELETE. Eles podem ser utilizados para adicionar, imprimir e remover items da lista. Existe também uma API GET /todolist, que imprime toda a lista de TODOs.
+A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT, GET e DELETE; os quais são utilizados para adicionar, imprimir e remover items da lista. Existe também uma API GET /todolist, que imprime toda a lista de TODOs.
 
 ### Configuração do ambiente
 Pessoas curiosas podem aprender o básico de [Go](http://golang.org) [aqui](https://tour.golang.org/welcome/1). Web app developers podem começar [aqui](https://golang.org/doc/articles/wiki/).
