@@ -4,7 +4,7 @@ Este projeto tem como objetivo servir de suporte ao curso de Verificação, Vali
 
 Uma vez que será completamente efeutado pelo professor e o foco principal são os conceitos ministrados, o passo-a-passo poderia ser ministrado em qualquer linguagem de programação. Escolhemos [Go](http://golang.org) para esse curso. Para uma lista mais completa de motivos para a escolha de Go, por favor clique [aqui](#porque-go).
 
-A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT, GET e DELETE; os quais são utilizados para adicionar, imprimir e remover items da lista. Existe também uma API GET /todolist, que imprime toda a lista de TODOs.
+A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT (adicionar item) e GET (listar itens).
 
 ### Configuração do ambiente
 Pessoas curiosas podem aprender o básico de [Go](http://golang.org) [aqui](https://tour.golang.org/welcome/1). Web app developers podem começar [aqui](https://golang.org/doc/articles/wiki/).
@@ -15,6 +15,7 @@ Eu achei mais fácil usar [gvm](http://github.com/moovweb/gvm) para instalação
 ```bash
 $ bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 $ gvm install go1.5
+$ source ~/.bashrc  # ou fechar e abrir o terminal
 $ gvm use go1.5 [--default]
 $ echo "export GOPATH={SEU GOPATH}" >> ~/.bashrc
 $ echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
@@ -50,7 +51,7 @@ Pronto! A essa altura do campeonato temos o servidor executando e a API de gerê
 Os comandos enviam requisições POST para http://localhost:8999/todo. A requisição é do tipo JSON e contém {"desc":"Comprar legumes"} e {"desc":"Comprar verduras"}. Ao final das execuções a lista de coisas a fazer terá dois items, como pode ser verificado através do comando abaixo:
 
 ```bash
- $ curl -H "Content-Type: application/json" -X GET localhost:8999/todolist
+ $ curl -H "Content-Type: application/json" -X GET localhost:8999/todo
  ["Comprar legumes","Comprar verduras"]
 ```
 
@@ -58,9 +59,45 @@ Para remover o primeiro item da lista podemos usar o comando DELETE.
 
 ```bash
  $ curl -H "Content-Type: application/json" -X DELETE localhost:8999/todo/0
- $ curl -H "Content-Type: application/json" -X GET localhost:8999/todolist
+ $ curl -H "Content-Type: application/json" -X GET localhost:8999/todo
  ["Comprar verduras"]
 ```
+
+### Executando os testes
+
+```bash
+$ cd $GOPATH/src/github.com/danielfireman/vvt/todo
+$ go test -v
+```
+
+### Adicionando o método DELETE
+
+Iremos utilizar a metodologia de desenvolvimento orientado a testes (TDD) para adicionar a funcionalidade de remoção de elementos da lista de TODOs. A API terá como parâmetro o índice do elemento na lista.
+
+Como estamos seguindo TDD, a primeira coisa a fazer é adicionar o teste.
+
+```go
+func TestDelete(t *testing.T) {
+}
+```
+
+Ao executar os testes temos:
+
+```bash
+$ cd $GOPATH/src/github.com/danielfireman/vvt/todo
+$  go test -v -coverprofile=/tmp/c.out && go tool cover -html=/tmp/c.out
+=== RUN   TestAdd
+--- PASS: TestAdd (0.00s)
+=== RUN   TestList
+--- PASS: TestList (0.00s)
+=== RUN   TestDelete
+--- PASS: TestDelete (0.00s)
+PASS
+coverage: 100.0% of statements
+ok  	github.com/danielfireman/vvt/todo	0.003s
+```
+
+Todos os testes passando e temos 100% de cobertura! Agora vamos implementação.
 
 ## Apendice
 ### Porque Go

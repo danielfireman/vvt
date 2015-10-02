@@ -28,22 +28,3 @@ func (s *store) List() []string {
 	copy(c, s.content)
 	return c
 }
-
-// Returns the todo item at the nth position in the store or err if there is no
-// item at the specified position.
-func (s *store) Get(n int) (string, error) {
-	if n < 0 || n >= len(s.content) {
-		return "", errors.New("Invalid position.")
-	}
-	return s.content[n], nil
-}
-
-// Deletes the specified item. Returns an error if there is no item stored at
-// the specified position.
-func (s *store) Delete(n int) error {
-	if n < 0 || n >= len(s.content) {
-		return errors.New("Invalid position.")
-	}
-	s.content = append(s.content[:n], s.content[n+1:]...)
-	return nil
-}
