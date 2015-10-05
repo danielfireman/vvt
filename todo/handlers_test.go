@@ -21,7 +21,7 @@ var todoItem = &item{"Buy strawberries."}
 func TestAddHandlerUsingRecord(t *testing.T) {
 	// Configuring the http router.
 	e := echo.New()
-	e.Post("/todo", NewAddHandler(NewStore()))
+	e.Post("/todo", AddHandler(InMemoryStore()))
 
 	// Issuing request.
 	w := httptest.NewRecorder()
@@ -42,10 +42,10 @@ func TestAddHandlerUsingRecord(t *testing.T) {
 // server as a blackbox component and invokes API methods using standard
 // HTTP calls.
 func TestEnd2End(t *testing.T) {
-	s := NewStore()
+	s := InMemoryStore()
 	e := echo.New()
-	e.Post("/todo", NewAddHandler(s))
-	e.Get("/todo", NewGetHandler(s))
+	e.Post("/todo", AddHandler(s))
+	e.Get("/todo", GetHandler(s))
 
 	srv := httptest.NewServer(e)
 	defer srv.Close()

@@ -7,7 +7,7 @@ import (
 )
 
 // Handler for the add todo operation.
-func NewAddHandler(s *store) echo.HandlerFunc {
+func AddHandler(s *store) echo.HandlerFunc {
 	return func(c *echo.Context) error {
 		var t item
 		if err := c.Bind(&t); err != nil {
@@ -19,7 +19,7 @@ func NewAddHandler(s *store) echo.HandlerFunc {
 }
 
 // Handler for the get todo operation.
-func NewGetHandler(s *store) echo.HandlerFunc {
+func GetHandler(s *store) echo.HandlerFunc {
 	return func(c *echo.Context) error {
 		return c.JSON(http.StatusOK, s.List())
 	}

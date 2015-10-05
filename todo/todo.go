@@ -4,7 +4,7 @@ package todo
 import "errors"
 
 // Creates a new todo item store.
-func NewStore() *store {
+func InMemoryStore() *store {
 	return &store{}
 }
 

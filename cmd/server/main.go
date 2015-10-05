@@ -20,7 +20,7 @@ func main() {
 	e.Use(mw.Recover())
 
 	// Creating new todo store.
-	s := todo.NewStore()
+	s := todo.InMemoryStore()
 
 	// Configuring handlers.
 	e.Post("/todo", todo.NewAddHandler(s))

@@ -3,7 +3,7 @@ package todo
 import "testing"
 
 func TestAdd(t *testing.T) {
-	s := NewStore()
+	s := InMemoryStore()
 	if err := s.Add(&item{""}); err == nil {
 		t.Errorf("must error, got:nil")
 	}
