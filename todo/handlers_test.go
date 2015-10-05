@@ -53,6 +53,7 @@ func TestEnd2End(t *testing.T) {
 
 	// Add.
 	addResp, _ := http.Post(addr, contentType, jsonBuffer(todoItem))
+	defer addResp.Body.Close()
 	addBody, _ := ioutil.ReadAll(addResp.Body)
 	if addResp.StatusCode != http.StatusCreated {
 		t.Errorf("Got:%v, want:%v", addResp.StatusCode, http.StatusCreated)
@@ -71,6 +72,7 @@ func TestEnd2End(t *testing.T) {
 
 	// Get.
 	getResp, _ := http.Get(addr)
+	defer getResp.Body.Close()
 	getBody, _ := ioutil.ReadAll(getResp.Body)
 	if getResp.StatusCode != http.StatusOK {
 		t.Errorf("Got:%v, want:%v", getResp.StatusCode, http.StatusOK)
