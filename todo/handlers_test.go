@@ -8,12 +8,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/labstack/echo"
 )
 
-const contentType = "application/json"
+const cType = "application/json"
 
 var todoItem = &item{"Buy strawberries."}
 
@@ -26,7 +27,7 @@ func TestAddHandlerUsingRecord(t *testing.T) {
 	// Issuing request.
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/todo", jsonBuffer(todoItem))
-	r.Header.Set("Content-Type", contentType)
+	r.Header.Set("Content-Type", cType)
 	e.ServeHTTP(w, r)
 
 	// Asserting on results.
@@ -51,35 +52,47 @@ func TestEnd2End(t *testing.T) {
 	defer srv.Close()
 	addr := fmt.Sprintf("%s/todo", srv.URL)
 
-	// Add.
-	addResp, _ := http.Post(addr, contentType, jsonBuffer(todoItem))
-	defer addResp.Body.Close()
-	addBody, _ := ioutil.ReadAll(addResp.Body)
-	if addResp.StatusCode != http.StatusCreated {
-		t.Errorf("Got:%v, want:%v", addResp.StatusCode, http.StatusCreated)
+	// Issuing requests many times concurrently TSAND and VSAND we can detect
+	// race conditions.
+	// Care to check, please run go test -race :)
+	var wg sync.WaitGroup
+	for i := 0; i < 3; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			// Add.
+			func() {
+				r, _ := http.Post(addr, cType, jsonBuffer(todoItem))
+				defer r.Body.Close()
+				if r.StatusCode != http.StatusCreated {
+					t.Errorf("Got:%v, want:%v",
+						r.StatusCode, http.StatusCreated)
+				}
+			}()
+			// Add with failed precondition.
+			func() {
+				r, _ := http.Post(addr, cType, bytes.NewBufferString(""))
+				if r.StatusCode != http.StatusPreconditionFailed {
+					t.Errorf("Got:%v, want:%v",
+						r.StatusCode, http.StatusPreconditionFailed)
+				}
+			}()
+			// Get.
+			func() {
+				r, _ := http.Get(addr)
+				defer r.Body.Close()
+				b, _ := ioutil.ReadAll(r.Body)
+				if r.StatusCode != http.StatusOK {
+					t.Errorf("Got:%v, want:%v", r.StatusCode, http.StatusOK)
+				}
+				str := jsonString(todoItem)
+				if !strings.Contains(string(b), str) {
+					t.Errorf("Got:%s, want:%v", string(b), str)
+				}
+			}()
+		}()
 	}
-	if !strings.Contains(string(addBody), jsonString(todoItem)) {
-		t.Errorf("Got:%s, want:%v", string(addBody), jsonString(todoItem))
-	}
-
-	// Add with failed precondition.
-	addFPResp, _ := http.Post(
-		addr, contentType, bytes.NewBufferString("Foooooo"))
-	if addFPResp.StatusCode != http.StatusPreconditionFailed {
-		t.Errorf("Got:%v, want:%v",
-			addFPResp.StatusCode, http.StatusPreconditionFailed)
-	}
-
-	// Get.
-	getResp, _ := http.Get(addr)
-	defer getResp.Body.Close()
-	getBody, _ := ioutil.ReadAll(getResp.Body)
-	if getResp.StatusCode != http.StatusOK {
-		t.Errorf("Got:%v, want:%v", getResp.StatusCode, http.StatusOK)
-	}
-	if !strings.Contains(string(getBody), jsonString(todoItem)) {
-		t.Errorf("Got:%s, want:%v", string(getBody), jsonString(todoItem))
-	}
+	wg.Wait()
 }
 
 func jsonBuffer(i *item) *bytes.Buffer {
