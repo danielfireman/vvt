@@ -4,20 +4,20 @@ import "testing"
 
 func TestAdd(t *testing.T) {
 	s := NewStore()
-	if err := s.Add(""); err == nil {
+	if err := s.Add(&item{""}); err == nil {
 		t.Errorf("must error, got:nil")
 	}
-	v := "foo"
-	if err := s.Add(v); err != nil {
+	i := &item{"foo"}
+	if err := s.Add(i); err != nil {
 		t.Errorf("want:nil, got:%q", err)
 	}
-	if s.content[0] != v {
-		t.Errorf("want:%v, got:%v", v, s.content[0])
+	if s.content[0] != i {
+		t.Errorf("want:%v, got:%v", i, s.content[0])
 	}
 }
 
 func TestList(t *testing.T) {
-	content := []string{"foo", "bar"}
+	content := []*item{&item{"foo"}, &item{"bar"}}
 	s := store{content}
 	for i, v := range s.List() {
 		if s.content[i] != v {

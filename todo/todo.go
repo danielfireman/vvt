@@ -8,14 +8,19 @@ func NewStore() *store {
 	return &store{}
 }
 
+// todo item.
+type item struct {
+	Desc string `json:"myName"`
+}
+
 // todo item store.
 type store struct {
-	content []string
+	content []*item
 }
 
 // Adds a todo item to the store.
-func (s *store) Add(i string) error {
-	if len(i) == 0 {
+func (s *store) Add(i *item) error {
+	if len(i.Desc) == 0 {
 		return errors.New("Invalid item.")
 	}
 	s.content = append(s.content, i)
@@ -23,8 +28,8 @@ func (s *store) Add(i string) error {
 }
 
 // Returns a copy of the todo items stored.
-func (s *store) List() []string {
-	c := make([]string, len(s.content))
+func (s *store) List() []*item {
+	c := make([]*item, len(s.content))
 	copy(c, s.content)
 	return c
 }
