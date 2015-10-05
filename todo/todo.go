@@ -10,7 +10,7 @@ func InMemoryStore() *store {
 
 // todo item.
 type item struct {
-	Desc string `json:"myName"`
+	Desc string `json:"desc"`
 }
 
 // todo item store.
