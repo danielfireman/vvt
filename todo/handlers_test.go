@@ -38,6 +38,9 @@ func TestAddHandlerUsingRecord(t *testing.T) {
 	}
 }
 
+// Endo to end test of the API server. This tests brings up a httptest
+// server as a blackbox component and invokes API methods using standard
+// HTTP calls.
 func TestEnd2End(t *testing.T) {
 	s := NewStore()
 	e := echo.New()
