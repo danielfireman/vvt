@@ -23,8 +23,8 @@ func main() {
 	s := todo.InMemoryStore()
 
 	// Configuring handlers.
-	e.Post("/todo", todo.NewAddHandler(s))
-	e.Get("/todo", todo.NewGetHandler(s))
+	e.Post("/todo", todo.AddHandler(s))
+	e.Get("/todo", todo.GetHandler(s))
 
 	fmt.Printf("Server listening at localhost:%d\n", *port)
 	e.Run(fmt.Sprintf(":%d", *port))
