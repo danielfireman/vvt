@@ -7,11 +7,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"sync"
 	"testing"
 
 	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 )
 
 const cType = "application/json"
@@ -31,12 +31,8 @@ func TestAddHandlerUsingRecord(t *testing.T) {
 	e.ServeHTTP(w, r)
 
 	// Asserting on results.
-	if w.Code != http.StatusCreated {
-		t.Errorf("Got:%v, want:%v", w.Code, http.StatusCreated)
-	}
-	if !strings.Contains(w.Body.String(), jsonString(todoItem)) {
-		t.Errorf("Got:%s, want:%v", w.Body.String(), jsonString(todoItem))
-	}
+	assert.Equal(t, w.Code, http.StatusCreated)
+	assert.Contains(t, w.Body.String(), jsonString(todoItem))
 }
 
 // Endo to end test of the API server. This tests brings up a httptest
@@ -64,30 +60,21 @@ func TestEnd2End(t *testing.T) {
 			func() {
 				r, _ := http.Post(addr, cType, jsonBuffer(todoItem))
 				defer r.Body.Close()
-				if r.StatusCode != http.StatusCreated {
-					t.Errorf("Got:%v, want:%v",
-						r.StatusCode, http.StatusCreated)
-				}
+				assert.Equal(t, r.StatusCode, http.StatusCreated)
 			}()
 			// Add with failed precondition.
 			func() {
 				r, _ := http.Post(addr, cType, bytes.NewBufferString(""))
-				if r.StatusCode != http.StatusPreconditionFailed {
-					t.Errorf("Got:%v, want:%v",
-						r.StatusCode, http.StatusPreconditionFailed)
-				}
+				defer r.Body.Close()
+				assert.Equal(t, r.StatusCode, http.StatusPreconditionFailed)
 			}()
 			// Get.
 			func() {
 				r, _ := http.Get(addr)
 				defer r.Body.Close()
-				b, _ := ioutil.ReadAll(r.Body)
-				if r.StatusCode != http.StatusOK {
-					t.Errorf("Got:%v, want:%v", r.StatusCode, http.StatusOK)
-				}
-				str := jsonString(todoItem)
-				if !strings.Contains(string(b), str) {
-					t.Errorf("Got:%s, want:%v", string(b), str)
+				if assert.Equal(t, r.StatusCode, http.StatusOK) {
+					b, _ := ioutil.ReadAll(r.Body)
+					assert.Contains(t, string(b), jsonString(todoItem))
 				}
 			}()
 		}()

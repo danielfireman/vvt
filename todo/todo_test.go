@@ -1,18 +1,17 @@
 package todo
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestAdd(t *testing.T) {
 	s := InMemoryStore()
-	if err := s.Add(&item{""}); err == nil {
-		t.Errorf("must error, got:nil")
-	}
+	assert.NotNil(t, s.Add(&item{""}))
 	i := &item{"foo"}
-	if err := s.Add(i); err != nil {
-		t.Errorf("want:nil, got:%q", err)
-	}
-	if s.content[0] != i {
-		t.Errorf("want:%v, got:%v", i, s.content[0])
+	if assert.Nil(t, s.Add(i)) {
+		assert.Equal(t, i, s.content[0], "item must be in the list")
 	}
 }
 
@@ -20,8 +19,6 @@ func TestList(t *testing.T) {
 	content := []*item{&item{"foo"}, &item{"bar"}}
 	s := store{content}
 	for i, v := range s.List() {
-		if s.content[i] != v {
-			t.Errorf("want:%v, got:%v", content[i], v)
-		}
+		assert.Equal(t, s.content[i], v, "item must be in the list")
 	}
 }
