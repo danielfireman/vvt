@@ -10,8 +10,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/labstack/echo"
-	"github.com/stretchr/testify/assert"
+	"github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/labstack/echo"
+	"github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/stretchr/testify/assert"
 )
 
 const (

@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/labstack/echo"
 	"github.com/danielfireman/vvt/todo"
-	"github.com/labstack/echo"
 
-	mw "github.com/labstack/echo/middleware"
+	mw "github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/labstack/echo/middleware"
 )
 
 var port = flag.Int("port", 8999, "Port to listen.")

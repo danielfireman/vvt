@@ -3,7 +3,7 @@ package todo
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/labstack/echo"
 )
 
 // Handler for the add todo operation.

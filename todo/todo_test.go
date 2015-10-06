@@ -3,7 +3,7 @@ package todo
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/stretchr/testify/assert"
 )
 
 func TestAdd(t *testing.T) {
