@@ -103,8 +103,8 @@ Todos os testes passando e temos 100% de cobertura! Agora vamos melhorar um pouc
 // todo_test.go
 func TestDelete(t *testing.T) {
 	s := store{[]string{"foo", "bar"}}
-        assert.Nil(t, s.Delete(0))
-        assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
+	assert.Nil(t, s.Delete(0))
+	assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
 }
 
 // todo.go
@@ -134,7 +134,7 @@ func (s *store) Delete(n int) error {
 E temos os testes passando e cobertura de 100%. Tudo verde, não? Vocês tem algum problema? O que aconteceria se o índice passado para deleção não estivesse nos limites da lista? Isso nos leva a mais uma iteração do TDD, mais uma falha. Ao adicionar o trecho abaixo ao test e re-executar os testes teremos mais uma falha.
 
 ```go
-       assert.NotNil(t, s.Delete(1))
+	assert.NotNil(t, s.Delete(1))
 ```
 
 Por fim, vamos corrigir essa falha na implementação finalizamos a adição da API ao serviço com os seguinte código.
@@ -144,8 +144,8 @@ Por fim, vamos corrigir essa falha na implementação finalizamos a adição da 
 func TestDelete(t *testing.T) {
 	s := store{[]string{"foo", "bar"}}
 	assert.Nil(t, s.Delete(0))
-        assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
-        assert.NotNil(t, s.Delete(1), "there is no index 1, must error")
+	assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
+	assert.NotNil(t, s.Delete(1), "there is no index 1, must error")
 }
 
 // todo.go
