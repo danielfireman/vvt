@@ -14,7 +14,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const cType = "application/json"
+const (
+	cType      = "application/json"
+	entryPoint = "/todo"
+)
 
 var todoItem = &item{"Buy strawberries."}
 
@@ -22,11 +25,11 @@ var todoItem = &item{"Buy strawberries."}
 func TestAddHandlerUsingRecord(t *testing.T) {
 	// Configuring the http router.
 	e := echo.New()
-	e.Post("/todo", AddHandler(InMemoryStore()))
+	e.Post(entryPoint, AddHandler(InMemoryStore()))
 
 	// Issuing request.
 	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/todo", jsonBuffer(todoItem))
+	r, _ := http.NewRequest("POST", entryPoint, jsonBuffer(todoItem))
 	r.Header.Set("Content-Type", cType)
 	e.ServeHTTP(w, r)
 
@@ -41,18 +44,18 @@ func TestAddHandlerUsingRecord(t *testing.T) {
 func TestEnd2End(t *testing.T) {
 	s := InMemoryStore()
 	e := echo.New()
-	e.Post("/todo", AddHandler(s))
-	e.Get("/todo", GetHandler(s))
+	e.Post(entryPoint, AddHandler(s))
+	e.Get(entryPoint, GetHandler(s))
 
 	srv := httptest.NewServer(e)
 	defer srv.Close()
-	addr := fmt.Sprintf("%s/todo", srv.URL)
+	addr := fmt.Sprintf("%s%s", srv.URL, entryPoint)
 
 	// Issuing requests many times concurrently TSAND and VSAND we can detect
 	// race conditions.
 	// Care to check, please run go test -race :)
 	var wg sync.WaitGroup
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 50; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
