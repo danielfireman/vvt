@@ -6,6 +6,8 @@ Uma vez que será completamente efeutado pelo professor e o foco principal são 
 
 A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT (adicionar item) e GET (listar itens).
 
+[![Coverage Status](https://coveralls.io/repos/danielfireman/vvt/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielfireman/vvt?branch=master)
+
 ### Configuração do ambiente
 Pessoas curiosas podem aprender o básico de [Go](http://golang.org) [aqui](https://tour.golang.org/welcome/1). Web app developers podem começar [aqui](https://golang.org/doc/articles/wiki/).
 
@@ -24,7 +26,8 @@ $ echo "export PATH=$PATH:$GOPATH/bin" >> ~/.bashrc
 #### Dependências e código do servidor de TODOs
 Para simplificar o código do servidor REST fazemos uso da biblioteca [labstack/echo](https://github.com/labstack/echo), outras bibliotecas também poderiam ser usadas, por exmplo [Gorilla Mux](https://github.com/gorilla/mux), [Gin](https://gin-gonic.github.io/gin/) e [Negroni](https://github.com/codegangsta/negroni). Esse passo só precisara ser executado uma vez.
 
-    $ go get github.com/labstack/echo  # labstack/echo
+    $ go get -u github.com/labstack/echo  # labstack/echo
+    $ go get -u github.com/stretchr/testify/assert # assert
     $ go get github.com/danielfireman/vvt
 
 Após execução, o código fonte do servidor de TODOs poderá ser encontrado em :
