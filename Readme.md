@@ -103,12 +103,8 @@ Todos os testes passando e temos 100% de cobertura! Agora vamos melhorar um pouc
 // todo_test.go
 func TestDelete(t *testing.T) {
 	s := store{[]string{"foo", "bar"}}
-	if err := s.Delete(0); err != nil {
-		t.Errorf("want:nil, got:%v", err)
-	}
-	if s.content[0] != "bar" {
-		t.Errorf("want:bar, got:%v", s.content[0])
-	}
+        assert.Nil(t, s.Delete(0))
+        assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
 }
 
 // todo.go
@@ -123,11 +119,7 @@ Ao re-executar os testes temos a primeira etapa do TDD, uma falha.
 $ cd $GOPATH/src/github.com/danielfireman/vvt/todo
 $  go test -coverprofile=/tmp/c.out && go tool cover -html=/tmp/c.out
 --- FAIL: TestDelete (0.00s)
-	todo_test.go:35: want:bar, got:foo
-FAIL
-coverage: 100.0% of statements
-exit status 1
-FAIL	github.com/danielfireman/vvt/todo	0.003s
+...
 ```	
 
 E a implementação:
@@ -142,9 +134,7 @@ func (s *store) Delete(n int) error {
 E temos os testes passando e cobertura de 100%. Tudo verde, não? Vocês tem algum problema? O que aconteceria se o índice passado para deleção não estivesse nos limites da lista? Isso nos leva a mais uma iteração do TDD, mais uma falha. Ao adicionar o trecho abaixo ao test e re-executar os testes teremos mais uma falha.
 
 ```go
-	if err := s.Delete(1); err == nil {
-		t.Errorf("must error, got:nil")
-	}
+       assert.NotNil(t, s.Delete(1))
 ```
 
 Por fim, vamos corrigir essa falha na implementação finalizamos a adição da API ao serviço com os seguinte código.
@@ -153,15 +143,9 @@ Por fim, vamos corrigir essa falha na implementação finalizamos a adição da 
 // todo_test.go
 func TestDelete(t *testing.T) {
 	s := store{[]string{"foo", "bar"}}
-	if err := s.Delete(0); err != nil {
-		t.Errorf("want:nil, got:%v", err)
-	}
-	if s.content[0] != "bar" {
-		t.Errorf("want:bar, got:%v", s.content[0])
-	}
-	if err := s.Delete(1); err == nil {
-		t.Errorf("want:nil, got:%v", err)
-	}
+	assert.Nil(t, s.Delete(0))
+        assert.Equal(t, s.content[0] != "bar", "bar should be the first element")
+        assert.NotNil(t, s.Delete(1), "there is no index 1, must error")
 }
 
 // todo.go
