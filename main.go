@@ -22,9 +22,13 @@ func main() {
 	// Creating new todo store.
 	s := todo.InMemoryStore()
 
-	// Configuring handlers.
+	// Configuring API handlers.
 	e.Post("/todo", todo.AddHandler(s))
 	e.Get("/todo", todo.GetHandler(s))
+
+	// Configuring HTTP handlers.
+	e.Favicon("public/favicon.ico")
+	e.Index("public/index.html")
 
 	fmt.Printf("Server listening at localhost:%d\n", *port)
 	e.Run(fmt.Sprintf(":%d", *port))
