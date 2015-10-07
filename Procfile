@@ -1,1 +1,1 @@
-web: ./vvt -port $PORT
+web: ./bin/vvt -port $PORT
