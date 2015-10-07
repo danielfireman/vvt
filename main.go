@@ -10,7 +10,7 @@ import (
 	mw "github.com/danielfireman/vvt/Godeps/_workspace/src/github.com/labstack/echo/middleware"
 )
 
-var port = flag.Int("port", 8999, "Port to listen.")
+var port = flag.Int("port", 8080, "Port to listen.")
 
 func main() {
 	flag.Parse()
