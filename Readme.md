@@ -6,7 +6,7 @@ Uma vez que será completamente efeutado pelo professor e o foco principal são 
 
 A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT (adicionar item) e GET (listar itens).
 
-[![Heroku](http://heroku-badge.herokuapp.com/?app=danielfireman-vvt&style=flat)](danielfireman-vvt.herokuapp.com) [![Coverage Status](https://coveralls.io/repos/danielfireman/vvt/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielfireman/vvt?branch=master)
+[![Heroku](http://heroku-badge.herokuapp.com/?app=danielfireman-vvt&style=flat)](http://danielfireman-vvt.herokuapp.com) [![Coverage Status](https://coveralls.io/repos/danielfireman/vvt/badge.svg?branch=master&service=github)](https://coveralls.io/github/danielfireman/vvt?branch=master)
 
 ### Configuração do ambiente
 Pessoas curiosas podem aprender o básico de [Go](http://golang.org) [aqui](https://tour.golang.org/welcome/1). Web app developers podem começar [aqui](https://golang.org/doc/articles/wiki/).
