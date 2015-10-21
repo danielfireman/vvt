@@ -1,8 +1,13 @@
 # Validação, Verificação e Testes
 
-Este projeto tem como objetivo servir de suporte ao curso de Verificação, Validação e Testes ministrado pelo professor [Daniel Fireman](mailto:danielfireman@gmail.com). Ele conterá todo o código fonte bem como um passo-a-passo da parte prática do curso.
+Este projeto tem como objetivo servir de suporte ao curso de Verificação, Validação e Testes ministrado pelo professor [Daniel Fireman](mailto:danielfireman@gmail.com). 
 
-Uma vez que será completamente efeutado pelo professor e o foco principal são os conceitos ministrados, o passo-a-passo poderia ser ministrado em qualquer linguagem de programação. Escolhemos [Go](http://golang.org) para esse curso. Para uma lista mais completa de motivos para a escolha de Go, por favor clique [aqui](#porque-go).
+Se você procura dados sobre uma turma específica:
+
+* [CESMAC 2015](tree/master/cesmac_2015)
+
+
+Está página conterá todo o código fonte bem como um passo-a-passo da parte prática do curso. Uma vez que será completamente efeutado pelo professor e o foco principal são os conceitos ministrados, o passo-a-passo poderia ser ministrado em qualquer linguagem de programação. Escolhemos [Go](http://golang.org) para esse curso. Para uma lista mais completa de motivos para a escolha de Go, por favor clique [aqui](#porque-go).
 
 A aplicação a ser criada é um serviço de gerenciamento de TODOs. Para fins ilustrativos a aplicação armazena a lista de TODOs em memória. A API /todos tem 3 métodos: PUT (adicionar item) e GET (listar itens).
 
