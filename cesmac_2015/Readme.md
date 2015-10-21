@@ -4,7 +4,7 @@
 * Provas serão realizadas nos dias 07 e 14/11 as 09:00 e terão duração de 45min
 * Ainda existem vagas para trabalhos, em particular o de testes de UI e o testes em dispositivos móveis. Falei com as equipes!
 ### Aula 17/10
-* [Slides](slides_aula_1.pdf)
+* [Slides](https://docs.google.com/presentation/d/1HGwp2REMQzVJLUgn6hYK8kKtBDfK377otZLkykLy2HI/edit?usp=sharing)
 
 ### Aula 07/11
 #### Trabalhos
