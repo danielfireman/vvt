@@ -1,7 +1,11 @@
 # Turma CESMAC 2015
 
 ### Avisos
-* Provas serão realizadas nos dias 07 e 14/11 as 09:00 e terão duração de 45min
+* A nota será calculada  da seguinte forma:
+    * 5 pontos prova 1 (P1): realizada no dia 07/11 as 09:00hs com o assunto da primeira aula (17/10)
+    * 5 pontos prova 2 (P2): realizada no dia 14/11 as 09:00hs assunto da segunda aula (07/11)
+    * 4 pontos opcionais de apresentação de trabalhos (T)
+    * **Nota = Min(10, P1 +  P2 + T)**
 * Ainda existem vagas para trabalhos, em particular o de testes de UI e o testes em dispositivos móveis. Falei com as equipes!
 
 
