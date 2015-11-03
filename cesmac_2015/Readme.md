@@ -10,7 +10,10 @@
 
 
 ### Aula 17/10
-* [Slides](https://docs.google.com/presentation/d/1HGwp2REMQzVJLUgn6hYK8kKtBDfK377otZLkykLy2HI/edit?usp=sharing)
+* Slides
+    * [1 - Apresentação](https://docs.google.com/presentation/d/1HGwp2REMQzVJLUgn6hYK8kKtBDfK377otZLkykLy2HI/edit?usp=sharing)
+    * [2 - Mão na massa](https://docs.google.com/presentation/d/1JLLC2SBwWgL_8ANBK0maY6TxSiYi6yPD39e-9kRb0uo/edit?usp=sharing)
+    * [3 - Teste de software](https://docs.google.com/presentation/d/1uv8iMcBSAn9Gh-9gUFRSlnIcAbeafKrXaOlQdTg9kjs/edit?usp=sharing)
 
 ### Aula 07/11
 #### Trabalhos
