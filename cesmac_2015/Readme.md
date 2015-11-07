@@ -32,5 +32,5 @@
 | Tema | Hora/Dur. | Participantes |
 | --- | --- | --- |
 |Ferramentas de Integração contínua|11:00/60min|Italo<br>Marcel<br>Noemi<br>Danilo|
-|Testes de UI|13:00/45min|Erivan<br>Marlon|
+|Testes de UI|13:00/45min|Erivan<br>Marlon<br>Renan Carvalho|
 |Testes de carga|14:00/60min|Tyago<br>Gil<br>Romualdo<br>Igor|
