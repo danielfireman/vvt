@@ -25,7 +25,6 @@
 
 | Tema | Hora/Dur. | Participantes |
 | --- | --- | --- |
-| Testes de Segurança: Denial of Service | 08:40/20min | Luiz Tojal | 
 | Testes de dispositivos móveis | 11:00/60min | Kaio Henrique<br>Luiz Antonio |
 | Testes de Sistema Cloud com ferramentas externas | 11:20/40min | Diego Lopes|
 | Acessibilidade | 13:00/40min | Bruno Rodrigues<br>Isaac Coimbra<br>Wylianne Costa |
@@ -34,10 +33,14 @@
 
 ### Aula 14/11
 
+   * Correção da prova da aula passada as 08:20
+   * A apresentação dos trabalhos começará as 08:40
+
 #### Trabalhos
 
 | Tema | Hora/Dur. | Participantes |
 | --- | --- | --- |
+| Testes de Segurança: Denial of Service | 08:40/20min | Luiz Tojal | 
 |Ferramentas de Integração contínua|11:00/60min|Italo<br>Marcel<br>Noemi<br>Danilo|
 |Testes de UI|13:00/45min|Erivan<br>Marlon<br>Renan Carvalho|
 |Testes de carga|14:00/60min|Tyago<br>Gil<br>Romualdo<br>Igor|
