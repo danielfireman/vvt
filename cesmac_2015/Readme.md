@@ -16,11 +16,16 @@
     * [3 - Teste de software](https://docs.google.com/presentation/d/1uv8iMcBSAn9Gh-9gUFRSlnIcAbeafKrXaOlQdTg9kjs/edit?usp=sharing)
 
 ### Aula 07/11
+* Slides
+    * [4 - Teste no mundo de Microserviços](https://docs.google.com/presentation/d/1r2NzSRXcU3wvlnTAXaCYE20JKVyjkNLNw7eoc1xJ93s/edit?usp=sharing)
+    * [5 - Verificação e integração contínua](https://docs.google.com/presentation/d/12F4wcX_jrJ7FpF-YUhyW0KoswJSjlP7-8klamZHTvng/edit?usp=sharing)
 #### Trabalhos
 
 | Tema | Hora/Dur. | Participantes |
 | --- | --- | --- |
-| Testes de dispositivos móveis | 11:00/60min | Kaio Henrique<br>Luiz Antonio || Testes de Sistema Cloud com ferramentas externas | 11:20/40min | Diego Lopes |
+| Testes de Segurança: Denial of Service | 08:40/20min | Luiz Tojal | 
+| Testes de dispositivos móveis | 11:00/60min | Kaio Henrique<br>Luiz Antonio |
+| Testes de Sistema Cloud com ferramentas externas | 11:20/40min | Diego Lopes|
 | Acessibilidade | 13:00/40min | Bruno Rodrigues<br>Isaac Coimbra<br>Wylianne Costa |
 |Testes de segurança|13:40/40min| Álvaro<br>Rafael|
 |Testes manuais/exploratórios|14:20/40min|Ibirajara<br>Heiner<br>|
