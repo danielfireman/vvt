@@ -19,6 +19,8 @@
 * Slides
     * [4 - Teste no mundo de Microserviços](https://docs.google.com/presentation/d/1r2NzSRXcU3wvlnTAXaCYE20JKVyjkNLNw7eoc1xJ93s/edit?usp=sharing)
     * [5 - Verificação e integração contínua](https://docs.google.com/presentation/d/12F4wcX_jrJ7FpF-YUhyW0KoswJSjlP7-8klamZHTvng/edit?usp=sharing)
+          * [Testing strategies in a microservices architecture by Toby Clemson](https://github.com/tobyclemson/testing-micro-service-architecture-presentation/blob/master/presentation/testing-strategies-in-a-micro-service-architecture.pdf)
+
 #### Trabalhos
 
 | Tema | Hora/Dur. | Participantes |
